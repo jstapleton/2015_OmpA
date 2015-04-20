@@ -154,7 +154,7 @@ int main()
     
 	pOfCurrSeq = getPOfSequence(currSeq);
 	
-	eModOfCurrSeq = energyOfCurrSeq - A * log(pOfCurrSeq) + 10E32*(2.29654E-16 - getSequenceEntropy(countAAs_Vector(currSeq))) * (2.29654E-16 - getSequenceEntropy(countAAs_Vector(currSeq)));
+	eModOfCurrSeq = energyOfCurrSeq - A * log(pOfCurrSeq) + 5.06*10E-70*(3.23E35 - getSequenceEntropy(countAAs_Vector(currSeq))) * (3.23E35 - getSequenceEntropy(countAAs_Vector(currSeq)));
 	
 	eModOfBestSeq = eModOfCurrSeq;
 
@@ -200,8 +200,8 @@ int main()
                 continue;
             }
 
-            eModOfCurrSeq = getEnergyOfSequence(currSeq) - A * log(getPOfSequence(currSeq)) + 10E32*(2.29654E-16 - getSequenceEntropy(countAAs_Vector(currSeq))) * (2.29654E-16 - getSequenceEntropy(countAAs_Vector(currSeq)));
-            eModOfPrevSeq = getEnergyOfSequence(prevSeq) - A * log(getPOfSequence(prevSeq)) + 10E32*(2.29654E-16 - getSequenceEntropy(countAAs_Vector(prevSeq))) * (2.29654E-16 - getSequenceEntropy(countAAs_Vector(prevSeq)));
+            eModOfCurrSeq = getEnergyOfSequence(currSeq) - A * log(getPOfSequence(currSeq)) + 5.06*10E-70*(3.23E35 - getSequenceEntropy(countAAs_Vector(currSeq))) * (3.23E35 - getSequenceEntropy(countAAs_Vector(currSeq)));
+            eModOfPrevSeq = getEnergyOfSequence(prevSeq) - A * log(getPOfSequence(prevSeq)) + 5.06*10E-70*(3.23E35 - getSequenceEntropy(countAAs_Vector(prevSeq))) * (3.23E35 - getSequenceEntropy(countAAs_Vector(prevSeq)));
 
             //case: energy criteria not met -> Metropolis
             if(eModOfCurrSeq >= eModOfPrevSeq)
@@ -450,7 +450,17 @@ double getSequenceEntropy (vector<int> countVect)
         }
     
     }
-    
+
+    length = numerator
+
+    for (int i = length - 1; i > 1; i--)
+        
+    {
+            
+        numerator *= i;
+        
+    }    
+
     double seqEnt = numerator/denominator;
     
     return seqEnt;
