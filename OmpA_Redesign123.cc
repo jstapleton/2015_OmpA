@@ -143,15 +143,17 @@ int main()
 	double energyOfCurrSeq, energyOfPrevSeq, energyOfBestSeq;
 	
 	double eModOfCurrSeq, eModOfPrevSeq, eModOfBestSeq;
-	double penOfBestSeq;
-    
+	double penOfBestSeq, penOfCurrSeq;
+
 	energyOfCurrSeq = getEnergyOfSequence(currSeq);
 	
 	eModOfCurrSeq = energyOfCurrSeq + 5.06*10E-70*(3.23E35 - getSequenceEntropy(countAAs_Vector(currSeq))) * (3.23E35 - getSequenceEntropy(countAAs_Vector(currSeq)));
 	
 	eModOfBestSeq = eModOfCurrSeq;
-
-	cout << currSeq << " " << energyOfCurrSeq << " " << eModOfCurrSeq << endl;
+	penOfCurrSeq = energyOfCurrSeq - eModOfCurrSeq;
+	cout << currSeq << " with energy " << energyOfCurrSeq << " - penalty " << penOfCurrSeq
+                    
+                    << " = " << eModOfCurrSeq << endl;
 
 	double boltzmannRandom, boltzmannCriteria;
 
