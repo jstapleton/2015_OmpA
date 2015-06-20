@@ -431,8 +431,10 @@ double getSequenceEntropy (vector<int> countVect)
     
     }
 
-    length = numerator
+    
+    int length = numerator
 
+;
     for (int i = length - 1; i > 1; i--)
         
     {

@@ -148,22 +148,21 @@ int main()
 	double pOfCurrSeq, pOfPrevSeq, pOfBestSeq;
 	
 	double eModOfCurrSeq, eModOfPrevSeq, eModOfBestSeq;
-	double penOfBestSeq;
+	double penOfCurrSeq, penOfBestSeq;
     
 	energyOfCurrSeq = getEnergyOfSequence(currSeq);
     
 	pOfCurrSeq = getPOfSequence(currSeq);
-	
+
 	eModOfCurrSeq = energyOfCurrSeq - A * log(pOfCurrSeq) + 5.06*10E-70*(3.23E35 - getSequenceEntropy(countAAs_Vector(currSeq))) * (3.23E35 - getSequenceEntropy(countAAs_Vector(currSeq)));
 	
+    penOfCurrSeq = eModOfCurrSeq - energyOfCurrSeq + A * log(pOfCurrSeq);
 	eModOfBestSeq = eModOfCurrSeq;
 
     
-	cout << bestSeq << " with energy " << energyOfCurrSeq << " and P = " << pOfCurrSeq
+	cout << bestSeq << " with energy " << energyOfCurrSeq << " + penalty " << penOfCurrSeq
          
-	    << " - AlnP = " << A * log(pOfCurrSeq) << " seqEnt= " << getSequenceEntropy(countAAs_Vector(currSeq))
-         
-	    << " " << eModOfCurrSeq << endl;
+	    << " - AlnP = " << A * log(pOfCurrSeq) << " = final score " << eModOfCurrSeq << endl;
 
 	double boltzmannRandom, boltzmannCriteria;
 
@@ -228,13 +227,13 @@ int main()
                 
                 pOfBestSeq = getPOfSequence(bestSeq);
                 
-                penOfBestSeq = -energyOfBestSeq + A * log(pOfBestSeq) + eModOfBestSeq;
+                penOfBestSeq = eModOfBestSeq - energyOfBestSeq + A * log(pOfBestSeq);
 
                 cout << "Best sequence so far is: " << endl
-                    << bestSeq << " with energy " << energyOfBestSeq << " and P = " << pOfBestSeq << " + penalty " << penOfBestSeq
+                    << bestSeq << " with energy " << energyOfBestSeq << " + penalty " << penOfBestSeq
                     
-                    << " - AlnP = " << A * log(pOfBestSeq) << " seqEnt= " << getSequenceEntropy(countAAs_Vector(bestSeq)) << " = " 
-                    << eModOfBestSeq << endl << "Round: " << j << ", "
+                    << " - AlnP " << A * log(pOfBestSeq) << " = final score " << eModOfBestSeq << endl 
+                    << "Round: " << j << ", "
  << "Cycle: " << i << " with temperature " << T_Celsius << endl;
             }
 
@@ -423,7 +422,7 @@ double calcStepSize (double numFinal, double numInit, int stepNum)
 
 
 
-// Calculates sequence entropy: (number of resdues)/(product of factorials of number of each residue)
+// Calculates sequence entropy: (factorial of number of residues)/(product of factorials of number of each residue)
 
 double getSequenceEntropy (vector<int> countVect)
 
@@ -451,8 +450,10 @@ double getSequenceEntropy (vector<int> countVect)
     
     }
 
-    length = numerator
+    
+    int length = numerator
 
+;
     for (int i = length - 1; i > 1; i--)
         
     {
